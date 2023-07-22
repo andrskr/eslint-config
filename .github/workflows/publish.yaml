@@ -1,0 +1,71 @@
+name: 🚀 Publish NPM package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  run-checks:
+    name: 🔍 Run Checks
+    uses: ./.github/workflows/check.yaml
+
+  publish-npm:
+    name: 🚢 Publish to NPM
+    needs: run-checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 🚧 Setup PNPM
+        uses: ./.github/actions/setup-pnpm
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: 20.x
+          run-install: false
+
+      - name: 📝 Version
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: pnpm version ${TAG_NAME} --no-git-tag-version
+
+      - name: 📦 Publish no NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --no-git-checks
+
+  publish-github:
+    name: 🚢 Publish to GPR
+    needs: run-checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 🚧 Setup PNPM
+        uses: ./.github/actions/setup-pnpm
+        with:
+          registry-url: https://npm.pkg.github.com/
+          node-version: 20.x
+          run-install: false
+
+      - name: 📝 Version
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: pnpm version ${TAG_NAME} --no-git-tag-version
+
+      - name: 🐙 Publish no GitHub
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm publish --no-git-checks

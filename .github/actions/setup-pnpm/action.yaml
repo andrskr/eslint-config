@@ -1,0 +1,59 @@
+name: 'Node and PNPM Setup'
+
+description: 'Sets Node and PNPM up for CI'
+
+inputs:
+  registry-url:
+    description: 'Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN'
+    required: false
+    default: ''
+
+  scope:
+    description: 'Optional scope for authenticating against scoped registries. Will fall back to the repository owner when using the GitHub Packages registry (https://npm.pkg.github.com/)'
+    required: false
+    default: ''
+
+  node-version:
+    description: 'Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0'
+    required: false
+    default: latest
+
+  run-install:
+    description: 'If specified, run `pnpm install`'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: 🏗️ Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+        registry-url: ${{ inputs.registry-url }}
+        scope: ${{ inputs.scope }}
+
+    - name: 📦 Install PNPM
+      uses: pnpm/action-setup@v2
+      with:
+        run_install: false
+
+    - name: 📁 Get PNPM store directory
+      id: pnpm-store
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - name: 💾 Setup PNPM cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: 🧰 Install dependencies
+      if: ${{ inputs.run-install == 'true' }}
+      shell: bash
+      run: pnpm install
