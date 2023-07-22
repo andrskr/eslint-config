@@ -11,21 +11,32 @@ Install the package using `pnpm` (or `npm`, or `yarn`):
 ```sh
 pnpm add -D @andrskr/eslint-config
 ```
-Add the `eslintConfig` key to your `package.json`
 
-```diff
-diff --git a/package.json b/package.json
-index 2ecef3d..260838f 100644
---- a/package.json
-+++ b/package.json
-@@ -5,6 +5,7 @@
-   "keywords": [
-     "eslint"
-   ],
-+  "eslintConfig": {
-+    "extends": ["@andrskr/eslint-config"]
-+  }
- ```
+To use a shareable config, include the config name in the `extends` field of a configuration file. For the value, use your module name. For example:
+
+```json
+{
+  "extends": "@andrskr/eslint-config"
+}
+```
+
+If you're using TypeScript:
+
+```js
+module.exports = {
+  extends: '@andrskr/eslint-config',
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        project: ['./tsconfig.json', './tsconfig.node.json'],
+        tsconfigRootDir: __dirname,
+      },
+    },
+  ],
+};
+```
+
 Check out the `eslint` [documentation](https://eslint.org/docs/latest/use/configure/configuration-files) for more info on configurations and [how to use sharable config](https://eslint.org/docs/latest/extend/shareable-configs#using-a-shareable-config).
 
 ## Plugins
