@@ -224,6 +224,7 @@ module.exports = {
       'error',
       {
         case: 'kebabCase',
+        ignore: ['^README\\.md$'],
       },
     ],
     'unicorn/prevent-abbreviations': [
