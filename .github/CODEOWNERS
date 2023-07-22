@@ -7,4 +7,4 @@
 # In this case, we are specifying a wildcard pattern that matches all files and directories in the repository.
 # This means that the specified owner(s) will be responsible for reviewing and approving changes to all files and directories.
 
-* @andskre
+* @andrskr
