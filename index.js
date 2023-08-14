@@ -163,6 +163,11 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
+      settings: {
+        'import/resolver': {
+          typescript: {},
+        },
+      },
       plugins: ['@typescript-eslint'],
       extends: [
         'airbnb-typescript',
@@ -174,8 +179,10 @@ module.exports = {
       rules: {
         'no-unused-vars': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'import/no-unresolved': 'error',
         '@typescript-eslint/consistent-type-exports': 'error',
         '@typescript-eslint/consistent-type-imports': 'error',
+        '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
@@ -210,7 +217,27 @@ module.exports = {
     'no-console': 'error',
     'no-underscore-dangle': 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: 'ForInStatement',
+        message:
+          'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+      },
+      {
+        selector: 'LabeledStatement',
+        message:
+          'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
+      },
+      {
+        selector: 'WithStatement',
+        message:
+          '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
+      },
+    ],
     'prefer-arrow-callback': 'off',
+
+    'jsdoc/tag-lines': 'off',
 
     'import/no-absolute-path': 'off',
     'import/prefer-default-export': 'off',
@@ -253,10 +280,12 @@ module.exports = {
     'unicorn/prefer-node-protocol': 'error',
     'unicorn/prefer-number-properties': 'error',
     'unicorn/no-new-array': 'error',
+    'unicorn/no-keyword-prefix': 'off',
 
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
     'react/react-in-jsx-scope': 'off',
+    'react/jsx-props-no-spreading': 'off',
 
     'jsdoc/require-jsdoc': [
       'warn',
