@@ -11,12 +11,12 @@ module.exports = {
   ignorePatterns: ['pnpm-lock.yaml'],
   extends: [
     'eslint:recommended',
+    'plugin:import/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:react/jsx-runtime',
     'plugin:jsx-a11y/recommended',
     'airbnb',
-    'plugin:import/recommended',
     'plugin:unicorn/all',
     'plugin:promise/recommended',
     'plugin:sonarjs/recommended',
@@ -171,8 +171,8 @@ module.exports = {
       },
       plugins: ['@typescript-eslint'],
       extends: [
-        'airbnb-typescript',
         'plugin:import/typescript',
+        'airbnb-typescript',
         'plugin:@typescript-eslint/strict-type-checked',
         'plugin:@typescript-eslint/stylistic-type-checked',
         'plugin:jsdoc/recommended-typescript',
@@ -247,6 +247,18 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     'import/no-extraneous-dependencies': 'off',
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          orderImportKind: 'asc',
+          caseInsensitive: true,
+        },
+        warnOnUnassignedImports: true,
+      },
+    ],
 
     'unicorn/no-null': 'off',
     'unicorn/prefer-spread': 'off',
