@@ -16,6 +16,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:jsx-a11y/recommended',
     'airbnb',
+    'plugin:import/recommended',
     'plugin:unicorn/all',
     'plugin:promise/recommended',
     'plugin:sonarjs/recommended',
@@ -171,6 +172,7 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       extends: [
         'airbnb-typescript',
+        'plugin:import/typescript',
         'plugin:@typescript-eslint/strict-type-checked',
         'plugin:@typescript-eslint/stylistic-type-checked',
         'plugin:jsdoc/recommended-typescript',
