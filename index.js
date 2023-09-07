@@ -178,8 +178,10 @@ module.exports = {
       ],
       rules: {
         'no-unused-vars': 'off',
+
         'import/no-extraneous-dependencies': 'off',
         'import/no-unresolved': 'error',
+
         '@typescript-eslint/consistent-type-exports': 'error',
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -199,6 +201,8 @@ module.exports = {
         ],
         '@typescript-eslint/no-namespace': 'off',
         '@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
+
+        'jsdoc/tag-lines': 'off',
       },
     },
     {
@@ -236,8 +240,6 @@ module.exports = {
       },
     ],
     'prefer-arrow-callback': 'off',
-
-    'jsdoc/tag-lines': 'off',
 
     'import/no-absolute-path': 'off',
     'import/prefer-default-export': 'off',
@@ -286,6 +288,7 @@ module.exports = {
 
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
 
     'jsdoc/require-jsdoc': [
       'warn',
@@ -297,5 +300,6 @@ module.exports = {
         contexts: ['FunctionDeclaration:not([id.name=/^[A-Z].+/])'],
       },
     ],
+    'jsdoc/tag-lines': 'off',
   },
 };
