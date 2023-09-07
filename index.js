@@ -250,6 +250,14 @@ module.exports = {
     'import/order': [
       'error',
       {
+        pathGroups: [
+          {
+            pattern: '~/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+        distinctGroup: true,
         'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
