@@ -59,7 +59,7 @@ module.exports = {
       },
     },
     {
-      files: ['*.md', '*.mdx'],
+      files: ['*.md'],
       extends: ['plugin:markdown/recommended'],
       // Code blocks in markdown file
       rules: {
@@ -80,6 +80,13 @@ module.exports = {
         'no-undef': 'off',
         'no-unused-expressions': 'off',
         'no-unused-vars': 'off',
+      },
+    },
+    {
+      files: ['*.mdx'],
+      extends: ['plugin:mdx/recommended'],
+      settings: {
+        'mdx/code-blocks': true,
       },
     },
     {
