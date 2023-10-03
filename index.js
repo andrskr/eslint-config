@@ -88,6 +88,9 @@ module.exports = {
       settings: {
         'mdx/code-blocks': true,
       },
+      rules: {
+        'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.mdx'] }],
+      },
     },
     {
       files: ['*.json', '*.json5', '*.jsonc'],
