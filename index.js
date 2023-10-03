@@ -185,7 +185,13 @@ module.exports = {
         'import/no-unresolved': 'error',
 
         '@typescript-eslint/consistent-type-exports': 'error',
-        '@typescript-eslint/consistent-type-imports': 'error',
+        '@typescript-eslint/consistent-type-imports': [
+          'error',
+          {
+            fixStyle: 'inline-type-imports',
+            prefer: 'type-imports',
+          },
+        ],
         '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-unused-vars': [
@@ -205,6 +211,9 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
 
         'jsdoc/tag-lines': 'off',
+        'jsdoc/require-jsdoc': 'off',
+        'jsdoc/require-returns ': 'off',
+        'jsdoc/require-param': 'off',
       },
     },
     {
@@ -312,16 +321,17 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
 
-    'jsdoc/require-jsdoc': [
-      'warn',
-      {
-        require: {
-          ArrowFunctionExpression: true,
-          FunctionDeclaration: false,
-        },
-        contexts: ['FunctionDeclaration:not([id.name=/^[A-Z].+/])'],
-      },
-    ],
+    // 'jsdoc/require-jsdoc': [
+    //   'warn',
+    //   {
+    //     require: {
+    //       ArrowFunctionExpression: true,
+    //       FunctionDeclaration: false,
+    //     },
+    //     contexts: ['FunctionDeclaration:not([id.name=/^[A-Z].+/])'],
+    //   },
+    // ],
     'jsdoc/tag-lines': 'off',
+    'jsdoc/require-jsdoc': 'off',
   },
 };
